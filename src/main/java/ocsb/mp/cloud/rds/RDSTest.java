@@ -22,8 +22,8 @@ public class RDSTest implements RequestHandler<S3Event, Boolean> {
 	public static void main(String[] args) {
 		log.info("RDS TEST......");
 		
-//	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
-	    String url = "localhost";
+	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
+//	    String url = "localhost";
 	    int port = 5432;
 	    String dbId = "";
 	    
