@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -11,7 +14,12 @@ import com.amazonaws.services.lambda.runtime.events.S3Event;
 
 public class RDSTest implements RequestHandler<S3Event, Boolean> {
 	
+	private static final Logger log = LogManager.getLogger(RDSTest.class);
+
+	
 	public static void main(String[] args) {
+		log.info("RDS TEST......");
+		
 
 	}
 
