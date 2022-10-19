@@ -22,12 +22,13 @@ public class RDSTest implements RequestHandler<S3Event, Boolean> {
 		
 	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
 	    int port = 5432;
+	    String dbId = "db-1";
 	    
 	    log.info("url"+ url);
 	    log.info("port"+ port);
 	    
 	    try (Connection conn = DriverManager.getConnection(
-	            "jdbc:postgresql://" + url + "/mp_dev", "postgres", "sapassword")) {
+	            "jdbc:postgresql://" + url + "/"+dbId, "postgres", "sapassword")) {
 
 	        if (conn != null) {
 	        	log.info("Connected to the database!");
