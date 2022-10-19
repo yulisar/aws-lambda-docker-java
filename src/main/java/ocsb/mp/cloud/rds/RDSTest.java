@@ -20,6 +20,28 @@ public class RDSTest implements RequestHandler<S3Event, Boolean> {
 	public static void main(String[] args) {
 		log.info("RDS TEST......");
 		
+	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
+	    int port = 5432;
+	    
+	    log.info("url"+ url);
+	    log.info("port"+ port);
+	    
+	    try (Connection conn = DriverManager.getConnection(
+	            "jdbc:postgresql://" + url + "/mp_dev", "postgres", "sapassword")) {
+
+	        if (conn != null) {
+	        	log.info("Connected to the database!");
+	        } else {
+	        	log.info("Failed to make connection!");
+	        }
+
+	    } catch (SQLException e) {
+	    	log.info(e.getSQLState() +"--"+ e.getMessage());
+	    } catch (Exception e) {
+	    	log.info(e.toString());
+	    }
+	    
+		
 
 	}
 
