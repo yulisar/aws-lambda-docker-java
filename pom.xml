@@ -1,52 +1,61 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>aws</groupId>
-	<artifactId>aws-S3</artifactId>
+	<artifactId>aws-Lambda-rds</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>AWS S3 App</name>
+	<name>AWS Lambda RDS App</name>
 
 
 	<packaging>jar</packaging>
 
 	<properties>
 		<commons-io.version>2.11.0</commons-io.version>
-
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.plugin.version>11</maven.compiler.plugin.version>
+		<aws.java.sdk.version>2.17.290</aws.java.sdk.version>
 	</properties>
-
-
+	
 	<dependencies>
+	
+	<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-events</artifactId>
+			<version>3.11.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>1.11.163</version>
+			<artifactId>aws-lambda-java-core</artifactId>
+			<version>1.2.1</version>
 		</dependency>
+		
+			<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons-io.version}</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.4.2</version>
 		</dependency>
-		<!-- JetS3t -->
-
-
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-api</artifactId>
-				<version>2.13.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>2.13.0</version>
-			</dependency>
-			
-			<dependency>
-  <groupId>javax.xml.bind</groupId>
-  <artifactId>jaxb-api</artifactId>
-  <version>2.3.1</version>
-</dependency>
-
-
+	
 	</dependencies>
+	
+	
+	<build>
+		<finalName>hello-lambda-rds</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 
 </project>
