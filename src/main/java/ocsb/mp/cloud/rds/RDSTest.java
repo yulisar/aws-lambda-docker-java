@@ -2,7 +2,9 @@ package ocsb.mp.cloud.rds;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +22,10 @@ public class RDSTest implements RequestHandler<S3Event, Boolean> {
 	public static void main(String[] args) {
 		log.info("RDS TEST......");
 		
-	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
+//	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
+	    String url = "localhost";
 	    int port = 5432;
-	    String dbId = "db-1";
+	    String dbId = "";
 	    
 	    log.info("url"+ url);
 	    log.info("port"+ port);
@@ -32,6 +35,18 @@ public class RDSTest implements RequestHandler<S3Event, Boolean> {
 
 	        if (conn != null) {
 	        	log.info("Connected to the database!");
+	        	Statement stmt = null;
+	        	stmt = conn.createStatement();
+	        	String sql = "SELECT datname FROM pg_database; ";
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while ( rs.next() ) {
+	                String  db = rs.getString("datname");
+	                System.out.println(db);
+	             }
+	             rs.close();
+	        	stmt.executeUpdate(sql);
+	            stmt.close();
+	            conn.close();
 	        } else {
 	        	log.info("Failed to make connection!");
 	        }
@@ -41,9 +56,6 @@ public class RDSTest implements RequestHandler<S3Event, Boolean> {
 	    } catch (Exception e) {
 	    	log.info(e.toString());
 	    }
-	    
-		
-
 	}
 
 	@Override
