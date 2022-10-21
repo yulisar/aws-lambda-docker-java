@@ -1,94 +1,76 @@
-package ocsb.mp.cloud.rds;
+package ocsb.mp.cloud.basic;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.S3Event;
 
-public class RDSTest implements RequestHandler<S3Event, Boolean> {
-	
-	private static final Logger log = LogManager.getLogger(RDSTest.class);
+public class JavaSimple implements RequestHandler<Map<String,String>, Boolean> {
 
-	
+	private static final Logger log = LogManager.getLogger(JavaSimple.class);
+
 	public static void main(String[] args) {
-		log.info("RDS TEST......");
-		
-	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
-//	    String url = "localhost";
-	    int port = 5432;
-	    String dbId = "";
-	    
-	    log.info("url"+ url);
-	    log.info("port"+ port);
-	    
-	    try (Connection conn = DriverManager.getConnection(
-	            "jdbc:postgresql://" + url + "/"+dbId, "postgres", "sapassword")) {
-
-	        if (conn != null) {
-	        	log.info("Connected to the database!");
-	        	Statement stmt = null;
-	        	stmt = conn.createStatement();
-	        	String sql = "SELECT datname FROM pg_database; ";
-	        	ResultSet rs = stmt.executeQuery(sql);
-	        	while ( rs.next() ) {
-	                String  db = rs.getString("datname");
-	                System.out.println(db);
-	             }
-	             rs.close();
-	        	stmt.executeUpdate(sql);
-	            stmt.close();
-	            conn.close();
-	        } else {
-	        	log.info("Failed to make connection!");
-	        }
-
-	    } catch (SQLException e) {
-	    	log.info(e.getSQLState() +"--"+ e.getMessage());
-	    } catch (Exception e) {
-	    	log.info(e.toString());
-	    }
+		log.info("JavaSimple TEST......");
+//	   
 	}
 
 	@Override
-	public Boolean handleRequest(S3Event event, Context context) {
-		
-		final LambdaLogger logger = context.getLogger();
-		
-		
-	    String url = "db-1.c7oacjbxyql0.ap-southeast-1.rds.amazonaws.com";
-	    int port = 5432;
-	    
-	    logger.log("url"+ url);
-	    logger.log("port"+ port);
-	    
-	    try (Connection conn = DriverManager.getConnection(
-	            "jdbc:postgresql://" + url + "/mp_dev", "postgres", "sapassword")) {
+	public Boolean handleRequest(Map<String,String> event, Context context) {
 
-	        if (conn != null) {
-	        	 logger.log("Connected to the database!");
-	        } else {
-	        	 logger.log("Failed to make connection!");
-	        }
 
-	    } catch (SQLException e) {
-	    	 logger.log(e.getSQLState() +"--"+ e.getMessage());
-	    } catch (Exception e) {
-	    	logger.log(e.toString());
-	    }
-	    
-	    
-	    
+		log.info("inf: JavaSimple TEST......");
+
+
+//		log.info("url: {}", urldb);
+//		log.info("port: {}", port);
+//
+//		Properties props = new Properties();
+//		props.setProperty("options", "-c search_path=test,public,pg_catalog -c statement_timeout=90000");
+//
+//		String jdbcUrl = "jdbc:postgresql://" + urldb + "/" + dbId;
+//		String username = "postgres";
+//		String pass = "Pass1234!!";
+//
+//		log.info("Getting Connection to DB..");
+//		int timeout = 500;
+//
+//		try {
+//			log.info("Time Out: {}" , timeout);
+//			DriverManager.setLoginTimeout(timeout);
+//			Connection conn = DriverManager.getConnection(jdbcUrl, username, pass);
+//
+//			if (conn != null) {
+//				log.info("Connected to the database!");
+//				Statement stmt = null;
+//				stmt = conn.createStatement();
+//				String sql = "SELECT datname FROM pg_database; ";
+//				ResultSet rs = stmt.executeQuery(sql);
+//				while (rs.next()) {
+//					String db = rs.getString("datname");
+//					System.out.println(db);
+//				}
+//				rs.close();
+//				stmt.executeUpdate(sql);
+//				stmt.close();
+//				conn.close();
+//			} else {
+//				log.info("Failed to make connection!");
+//			}
+//
+//		} catch (SQLException e) {
+//			log.info(e.getSQLState() + "--" + e.getMessage());
+//		} catch (Exception e) {
+//			log.info(e.toString());
+//		}
+
+//		
 
 		return false;
 	}
+
+
 
 }
